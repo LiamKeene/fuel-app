@@ -1,0 +1,25 @@
+{
+  "name": "fuel-app-api",
+  "version": "0.0.1",
+  "description": "ExpressJS/GraphQL API for fuel-app",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/node index.js"
+  },
+  "author": "Liam Keene <liam.keene@sentia.com.au>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.1",
+    "knex": "^0.14.6",
+    "pg": "^7.4.1",
+    "pg-promise": "^8.4.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^4.0.0"
+  }
+}
