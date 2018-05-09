@@ -5,6 +5,8 @@ import {
   GraphQLDateTime
 } from 'graphql-iso-date'
 
+import { combineResolvers } from "apollo-resolvers"
+
 import knex from "db"
 
 import User from "models/User"
@@ -12,9 +14,9 @@ import User from "models/User"
 import UserSchema from "./User/schema"
 import { resolvers } from "./User/resolvers"
 
-// const resolvers = {
-//   DateTime: GraphQLDateTime
-// }
+const projectResolvers = {
+  DateTime: GraphQLDateTime
+}
 
 const SchemaDefinition = `
   schema {
@@ -25,5 +27,8 @@ const SchemaDefinition = `
 
 export default makeExecutableSchema({
   typeDefs: [SchemaDefinition, UserSchema],
-  resolvers: resolvers(User)
+  resolvers: combineResolvers([
+    projectResolvers,
+    resolvers(User)
+  ])
 })

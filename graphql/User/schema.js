@@ -5,9 +5,9 @@ export default `
     id:                 ID!
     name:               String!
     role:               String!
-    encryptedPassword:  String
-    createdAt:          DateTime
-    updatedAt:          DateTime
+    encrypted_password: String
+    created_at:         DateTime
+    updated_at:         DateTime
   }
 
   input UserInput {
