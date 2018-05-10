@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt"
+import crypto from "crypto"
 
 import { BaseModel } from "db"
 
@@ -14,8 +15,13 @@ export default class User extends BaseModel {
   }
 
   static create = async ({ email, password }) => {
-    const hash = await bcrypt.hash(password, 10)
-    console.log(email, password, hash)
-    return await User.query().insert({ email, encrypted_password: hash })
+    const encrypted_password = await bcrypt.hash(password, 10)
+    const uuid = crypto.randomBytes(16).toString("hex")
+
+    return await User.query().insert({
+      uuid,
+      email,
+      encrypted_password
+    })
   }
 }

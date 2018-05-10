@@ -3,9 +3,11 @@ export default `
 
   type User {
     id:                 ID!
-    email:               String!
+    uuid:               String!
+    email:              String!
     role:               String!
     encrypted_password: String
+    jwt:                String
     created_at:         DateTime
     updated_at:         DateTime
   }
