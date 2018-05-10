@@ -3,7 +3,7 @@ export default `
 
   type User {
     id:                 ID!
-    name:               String!
+    email:               String!
     role:               String!
     encrypted_password: String
     created_at:         DateTime
@@ -11,7 +11,7 @@ export default `
   }
 
   input UserInput {
-    name: String
+    email: String
   }
 
   type Query {
@@ -19,7 +19,7 @@ export default `
     getUser(id: ID!): User
   }
 
-  type Mutation {
+  extend type Mutation {
     createUser(input: UserInput): User
     updateUser(id: ID!, input: UserInput): User
   }

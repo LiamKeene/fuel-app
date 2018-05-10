@@ -1,7 +1,7 @@
 exports.up = (knex, Promise) => (
   knex.schema.createTable("users", table => {
     table.increments("id").primary
-    table.string("name")
+    table.string("email")
     table.string("role")
     table.string("encrypted_password")
     table.timestamps()

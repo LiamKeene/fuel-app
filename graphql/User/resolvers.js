@@ -1,4 +1,4 @@
-export const resolvers = User => ({
+export default User => ({
   Query: {
     getUser: async (_, { id }, context) => (
       await User.query().where({ id }).first()

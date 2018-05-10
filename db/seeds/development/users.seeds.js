@@ -4,7 +4,7 @@ exports.seed = (knex, Promise) => (
       knex("users").insert([
         {
           id: 1,
-          name: "Liam",
+          email: "admin@test.com",
           role: "admin",
         }
       ])
