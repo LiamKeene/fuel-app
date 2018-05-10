@@ -1,6 +1,6 @@
 import jwt    from "jsonwebtoken"
 
-export const currentUser = async (authorization, User) => {
+export const getUser = async (authorization, User) => {
   const bearerLength = "Bearer ".length
 
   if (authorization && authorization.length > bearerLength) {

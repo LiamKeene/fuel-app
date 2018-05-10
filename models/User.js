@@ -14,6 +14,11 @@ export default class User extends BaseModel {
     this.created_at = new Date().toISOString()
   }
 
+  isAdmin = () => this.role === "admin"
+
+  static find = async id => User.query().where({ id }).first()
+  static all = async () => User.query()
+
   static create = async ({ email, password }) => {
     const encrypted_password = await bcrypt.hash(password, 10)
     const uuid = crypto.randomBytes(16).toString("hex")
@@ -27,5 +32,13 @@ export default class User extends BaseModel {
     })
   }
 
-  isAdmin = () => this.role === "admin"
+  static update = async (id, {
+    email,
+    password,
+  }) => {
+    return await User.query().update({
+      email,
+      password
+    }).where({ id }).returning("*").first()
+  }
 }

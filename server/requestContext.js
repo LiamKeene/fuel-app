@@ -1,12 +1,12 @@
 import User from "../models/User"
-import { currentUser } from "../server/authentication"
+import { getUser } from "../server/authentication"
 
 export default async request => {
-  const user = await currentUser(request.headers["authorization"], User)
+  const currentUser = await getUser(request.headers["authorization"], User)
 
   return {
     request,
-    user,
+    currentUser,
     models: {
       User
     }

@@ -12,20 +12,20 @@ const AuthenticationRequiredError = createError("AuthenticationRequiredError", {
 
 export const isAuthenticatedResolver = baseResolver.createResolver(
   // Extract the user from context (undefined if non-existent)
-  (root, args, { user }) => {
-    if (!user) throw new AuthenticationRequiredError()
+  (root, args, { currentUser }) => {
+    if (!currentUser) throw new AuthenticationRequiredError()
   }
 )
 
 export const isAdminResolver = isAuthenticatedResolver.createResolver(
   // Extract the user and make sure they are an admin
-  (root, args, { user }) => {
+  (root, args, { currentUser }) => {
     /*
       If thrown, this error will bubble up to baseResolver's
       error callback (if present).  If unhandled, the error is returned to
       the client within the `errors` array in the response.
     */
-    if (!user.isAdmin) throw new ForbiddenError()
+    if (!currentUser.isAdmin) throw new ForbiddenError()
 
     /*
       Since we aren't returning anything from the

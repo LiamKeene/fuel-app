@@ -6,32 +6,29 @@ const NotYourUserError = createError("NotYourUserError", {
   message: "You cannot update the profile for other users"
 })
 
-const updateUser = isAuthenticatedResolver.createResolver(
-  async (_, { id, input }, { user, models: { User } }) => {
-    /*
-      If thrown, this error will bubble up to isAuthenticatedResolver's error callback
-      (if present) and then to baseResolver's error callback.  If unhandled, the error
-      is returned to the client within the `errors` array in the response.
-    */
-    if (!user.isAdmin() && id != user.id) throw new NotYourUserError()
+const getUser = isAuthenticatedResolver.createResolver(
+  async (_, { id }, { currentUser, models: { User } }) => {
+    if (!currentUser.isAdmin() && id != currentUser.id) throw new NotYourUserError()
 
-    return await User.query().update(input).where({ id }).returning("*").first()
+    return await User.find(id)
+  }
+)
+
+const updateUser = isAuthenticatedResolver.createResolver(
+  async (_, { id, input }, { currentUser, models: { User } }) => {
+    if (!currentUser.isAdmin() && id != currentUser.id) throw new NotYourUserError()
+
+    return await User.update(id, input)
   },
 )
 
 export default {
   Query: {
-    getUser: async (_, { id }, { models: { User } }) => (
-      await User.query().where({ id }).first()
-    ),
-    getUsers: async () => (
-      await User.query()
-    ),
+    getUser: getUser,
+    getUsers: async () => await User.all(),
   },
   Mutation: {
-    createUser: async (_, { input }, { models: { User } }) => (
-      await User.query().insert(input)
-    ),
+    createUser: async (_, { input }, { models: { User } }) => await User.query().insert(input),
     updateUser: updateUser,
   }
 }

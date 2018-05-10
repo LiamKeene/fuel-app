@@ -7,10 +7,6 @@ import {
 
 import { combineResolvers } from "apollo-resolvers"
 
-import knex from "db"
-
-import User from "models/User"
-
 import {
   AuthSchema,
   authResolvers
