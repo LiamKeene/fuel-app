@@ -11,10 +11,15 @@ import knex from "db"
 
 import User from "models/User"
 
-import AuthSchema from "./Auth/schema"
-import authResolvers from "./Auth/resolvers"
-import UserSchema from "./User/schema"
-import userResolvers from "./User/resolvers"
+import {
+  AuthSchema,
+  authResolvers
+} from "./Auth"
+
+import {
+  UserSchema,
+  userResolvers
+} from "./User"
 
 const projectResolvers = {
   DateTime: GraphQLDateTime
@@ -31,7 +36,7 @@ export default makeExecutableSchema({
   typeDefs: [SchemaDefinition, AuthSchema, UserSchema],
   resolvers: combineResolvers([
     projectResolvers,
-    userResolvers(User),
-    authResolvers(User)
+    userResolvers,
+    authResolvers,
   ])
 })

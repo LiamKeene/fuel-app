@@ -7,9 +7,10 @@ export default `
     email:              String!
     role:               String!
     encrypted_password: String
-    jwt:                String
     created_at:         DateTime
     updated_at:         DateTime
+
+    jwt:                String
   }
 
   input UserInput {

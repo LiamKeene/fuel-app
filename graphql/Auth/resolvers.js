@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt"
 import jwt    from "jsonwebtoken"
 
-export default User => ({
+export default {
   Mutation: {
-    login: async (_, { email, password }, context) => {
+    login: async (_, { email, password }, { models: { User } }) => {
       const user = await User.query().where({ email }).first()
 
       if (!user) {
@@ -22,7 +22,7 @@ export default User => ({
 
       return user
     },
-    signup: async (_, { email, password }) => {
+    signup: async (_, { email, password }, { models: { User } }) => {
       const existingUser = await User.query().where({ email }).first()
 
       if (existingUser) {
@@ -38,4 +38,4 @@ export default User => ({
       return user
     }
   }
-})
+}
