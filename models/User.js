@@ -17,11 +17,15 @@ export default class User extends BaseModel {
   static create = async ({ email, password }) => {
     const encrypted_password = await bcrypt.hash(password, 10)
     const uuid = crypto.randomBytes(16).toString("hex")
+    const role = "user"
 
     return await User.query().insert({
       uuid,
       email,
-      encrypted_password
+      encrypted_password,
+      role
     })
   }
+
+  isAdmin = () => this.role === "admin"
 }

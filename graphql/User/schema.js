@@ -14,6 +14,7 @@ export default `
 
   input UserInput {
     email: String
+    role:  String
   }
 
   type Query {
