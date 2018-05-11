@@ -1,20 +1,23 @@
 import bcrypt from "bcrypt"
 import crypto from "crypto"
 
-import { BaseModel } from "db"
+import { TimestampedModel } from "db"
 
-export default class User extends BaseModel {
+import Vehicle from "./Vehicle"
+
+export default class User extends TimestampedModel {
   static tableName = "users"
 
-  $beforeUpdate() {
-    this.updated_at = new Date().toISOString()
+  static relationMappings = {
+    vehicles: {
+      relation: User.HasManyRelation,
+      modelClass: Vehicle,
+      join: {
+        from: "users.id",
+        to:   "vehicles.user_id"
+      }
+    }
   }
-
-  $beforeInsert() {
-    this.created_at = new Date().toISOString()
-  }
-
-  isAdmin = () => this.role === "admin"
 
   static find = async id => User.query().where({ id }).first()
   static all = async () => User.query()
@@ -34,11 +37,11 @@ export default class User extends BaseModel {
 
   static update = async (id, {
     email,
-    password,
   }) => {
     return await User.query().update({
       email,
-      password
     }).where({ id }).returning("*").first()
   }
+
+  isAdmin = () => this.role === "admin"
 }

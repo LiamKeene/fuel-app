@@ -17,6 +17,11 @@ import {
   userResolvers
 } from "./User"
 
+import {
+  VehicleSchema,
+  vehicleResolvers
+} from "./Vehicle"
+
 const projectResolvers = {
   DateTime: GraphQLDateTime
 }
@@ -29,10 +34,11 @@ const SchemaDefinition = `
 `
 
 export default makeExecutableSchema({
-  typeDefs: [SchemaDefinition, AuthSchema, UserSchema],
+  typeDefs: [SchemaDefinition, AuthSchema, UserSchema, VehicleSchema],
   resolvers: combineResolvers([
     projectResolvers,
-    userResolvers,
     authResolvers,
+    userResolvers,
+    vehicleResolvers,
   ])
 })
