@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt"
 import jwt    from "jsonwebtoken"
 
+import { JWT_HMAC_SECRET } from "server/config"
+
 export default {
   Mutation: {
     login: async (_, { email, password }, { models: { User } }) => {
@@ -18,7 +20,7 @@ export default {
 
       user.jwt = jwt.sign({
         id: user.uuid
-      }, "ABC123")
+      }, JWT_HMAC_SECRET)
 
       return user
     },
@@ -33,7 +35,7 @@ export default {
 
       user.jwt = jwt.sign({
         id: user.uuid
-      }, "ABC123")
+      }, JWT_HMAC_SECRET)
 
       return user
     }

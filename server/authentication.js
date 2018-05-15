@@ -1,4 +1,6 @@
-import jwt    from "jsonwebtoken"
+import jwt from "jsonwebtoken"
+
+import { JWT_HMAC_SECRET } from "./config"
 
 export const getUser = async (authorization, User) => {
   const bearerLength = "Bearer ".length
@@ -9,7 +11,7 @@ export const getUser = async (authorization, User) => {
     const {
       success, result
     } = await new Promise(resolve => {
-      jwt.verify(token, "ABC123", (error, result) => {
+      jwt.verify(token, JWT_HMAC_SECRET, (error, result) => {
 
         if (error) {
           resolve({
