@@ -1,9 +1,15 @@
 import { createError } from "apollo-errors"
 
+import { validate } from "email-validator"
+
 import { isAuthenticatedResolver } from "../aclResolvers"
 
 const NotYourUserError = createError("NotYourUserError", {
   message: "You cannot update the profile for other users"
+})
+
+const InvalidEmail = createError("NotAValidEmail", {
+  message: "This does not appear to be a valid email"
 })
 
 const getUser = isAuthenticatedResolver.createResolver(
@@ -13,6 +19,12 @@ const getUser = isAuthenticatedResolver.createResolver(
     return await User.find(id)
   }
 )
+
+const createUser = async (_, { input }, { models: { User } }) => {
+  if (!validate(input.email)) throw new InvalidEmail
+
+  return await User.create(input)
+}
 
 const updateUser = isAuthenticatedResolver.createResolver(
   async (_, { id, input }, { currentUser, models: { User } }) => {
@@ -28,7 +40,7 @@ export default {
     getUsers: async () => await User.all(),
   },
   Mutation: {
-    createUser: async (_, { input }, { models: { User } }) => await User.query().insert(input),
+    createUser: createUser,
     updateUser: updateUser,
   }
 }

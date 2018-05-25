@@ -13,9 +13,14 @@ export default `
     jwt:                String
   }
 
-  input UserInput {
-    email: String
-    role:  String
+  input CreateUserInput {
+    email:    String!
+    password: String!
+  }
+
+  input UpdateUserInput {
+    email:    String
+    password: String
   }
 
   type Query {
@@ -24,7 +29,7 @@ export default `
   }
 
   extend type Mutation {
-    createUser(input: UserInput): User
-    updateUser(id: ID!, input: UserInput): User
+    createUser(input: CreateUserInput): User
+    updateUser(id: ID!, input: UpdateUserInput): User
   }
 `

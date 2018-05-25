@@ -8,6 +8,13 @@ import Vehicle from "./Vehicle"
 export default class User extends TimestampedModel {
   static tableName = "users"
 
+  static get jsonSchema() {
+    return {
+      type:       "object",
+      "required": ["email"],
+    }
+  }
+
   static relationMappings = {
     vehicles: {
       relation: User.HasManyRelation,
