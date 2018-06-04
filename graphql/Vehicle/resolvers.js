@@ -35,5 +35,10 @@ export default {
     createVehicle: requireAuthentication(createVehicle),
     updateVehicle: requireAuthentication(updateVehicle),
     deleteVehicle: requireAuthentication(deleteVehicle),
+  },
+  Vehicle: {
+    user: async (vehicle, _, { models: { User }}) => (
+      await User.query().where({ id: vehicle.userId }).first()
+    )
   }
 }

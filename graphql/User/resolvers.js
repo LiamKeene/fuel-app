@@ -42,5 +42,8 @@ export default {
   Mutation: {
     createUser: createUser,
     updateUser: updateUser,
+  },
+  User: {
+    vehicles: async (user, _, { models: { Vehicle } }) => await Vehicle.query().where({ userId: user.id })
   }
 }
