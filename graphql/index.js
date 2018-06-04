@@ -18,6 +18,11 @@ import {
 } from "./User"
 
 import {
+  PurchaseSchema,
+  purchaseResolvers
+} from "./Purchase"
+
+import {
   VehicleSchema,
   vehicleResolvers
 } from "./Vehicle"
@@ -34,11 +39,12 @@ const SchemaDefinition = `
 `
 
 export default makeExecutableSchema({
-  typeDefs: [SchemaDefinition, AuthSchema, UserSchema, VehicleSchema],
+  typeDefs: [SchemaDefinition, AuthSchema, UserSchema, PurchaseSchema, VehicleSchema],
   resolvers: combineResolvers([
     projectResolvers,
     authResolvers,
     userResolvers,
+    purchaseResolvers,
     vehicleResolvers,
   ])
 })
