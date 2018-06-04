@@ -2,10 +2,9 @@ import { createError } from "apollo-errors"
 
 import {
   isAuthenticatedResolver,
-  isAdminResolver
+  isAdminResolver,
+  requireAuthentication
 } from "../aclResolvers"
-
-const requireAuthentication = resolver => isAuthenticatedResolver.createResolver(resolver)
 
 const getVehicles = async (root, args, { currentUser, models: { Vehicle } }) => (
   await currentUser.$relatedQuery("vehicles")

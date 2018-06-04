@@ -17,6 +17,8 @@ export const isAuthenticatedResolver = baseResolver.createResolver(
   }
 )
 
+export const requireAuthentication = resolver => isAuthenticatedResolver.createResolver(resolver)
+
 export const isAdminResolver = isAuthenticatedResolver.createResolver(
   // Extract the user and make sure they are an admin
   (root, args, { currentUser }) => {
