@@ -12,7 +12,7 @@ export default {
         throw new Error("Email not found")
       }
 
-      const validPassword = await bcrypt.compare(password, user.encrypted_password)
+      const validPassword = await bcrypt.compare(password, user.encryptedPassword)
 
       if (!validPassword) {
         throw new Error('Password is incorrect')

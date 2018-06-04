@@ -4,8 +4,11 @@ export default `
     make:       String
     model:      String
     rego:       String
-    created_at: DateTime
-    updated_at: DateTime
+    createdAt:  DateTime
+    updatedAt:  DateTime
+
+    user:       User!
+    purchases:  [Purchase]
   }
 
   input VehicleInput {

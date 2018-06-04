@@ -6,11 +6,13 @@ export default `
     uuid:               String!
     email:              String!
     role:               String!
-    encrypted_password: String
-    created_at:         DateTime
-    updated_at:         DateTime
+    encryptedPassword:  String
+    createdAt:          DateTime
+    updatedAt:          DateTime
 
     jwt:                String
+
+    vehicles:           [Vehicle]
   }
 
   input CreateUserInput {

@@ -21,7 +21,7 @@ export default class User extends TimestampedModel {
       modelClass: Vehicle,
       join: {
         from: "users.id",
-        to:   "vehicles.user_id"
+        to:   "vehicles.userId"
       }
     }
   }
@@ -30,14 +30,14 @@ export default class User extends TimestampedModel {
   static all = async () => User.query()
 
   static create = async ({ email, password }) => {
-    const encrypted_password = await bcrypt.hash(password, 10)
+    const encryptedPassword = await bcrypt.hash(password, 10)
     const uuid = crypto.randomBytes(16).toString("hex")
     const role = "user"
 
     return await User.query().insert({
       uuid,
       email,
-      encrypted_password,
+      encryptedPassword,
       role
     })
   }
