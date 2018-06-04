@@ -1,3 +1,5 @@
+import moment from "moment"
+
 import { createError } from "apollo-errors"
 
 import {
@@ -26,6 +28,7 @@ export default {
   Purchase: {
     vehicle: async (purchase, _, { models: { Vehicle } }) => (
       await Vehicle.query().where({ id: purchase.vehicleId }).first()
-    )
+    ),
+    timePurchased: async (purchase) => moment(purchase.createdAt).startOf("hour").fromNow()
   }
 }

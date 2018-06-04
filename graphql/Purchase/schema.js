@@ -1,15 +1,16 @@
 export default `
   type Purchase {
-    id:         ID!
+    id:             ID!
 
-    odometer:   Float!
-    quantity:   Float!
-    filled:     Boolean!
+    odometer:       Float!
+    quantity:       Float!
+    filled:         Boolean!
+    timePurchased:  String
 
-    createdAt:  DateTime
-    updatedAt:  DateTime
+    createdAt:      DateTime
+    updatedAt:      DateTime
 
-    vehicle:    Vehicle!
+    vehicle:        Vehicle!
   }
 
   input PurchaseInput {
