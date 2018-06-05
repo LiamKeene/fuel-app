@@ -44,6 +44,7 @@ export default {
     updateUser: updateUser,
   },
   User: {
+    profile:  async (user, _, { models: { Profile } }) => await Profile.query().where({ userId: user.id }).first(),
     vehicles: async (user, _, { models: { Vehicle } }) => await Vehicle.query().where({ userId: user.id })
   }
 }

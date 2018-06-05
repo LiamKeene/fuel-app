@@ -1,6 +1,8 @@
-import User from "../models/User"
+import Profile from "../models/Profile"
 import Purchase from "../models/Purchase"
+import User from "../models/User"
 import Vehicle from "../models/Vehicle"
+
 import { getUser } from "../server/authentication"
 
 export const populateUser = async (request, _, next) => {
@@ -13,8 +15,9 @@ export const populateUser = async (request, _, next) => {
 
 export const modelContext = {
   models: {
-    User,
+    Profile,
     Purchase,
+    User,
     Vehicle,
   }
 }

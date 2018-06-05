@@ -3,7 +3,8 @@ import crypto from "crypto"
 
 import { TimestampedModel } from "db"
 
-import Vehicle from "./Vehicle"
+// import Profile from "./Profile"
+// import Vehicle from "./Vehicle"
 
 export default class User extends TimestampedModel {
   static tableName = "users"
@@ -16,9 +17,17 @@ export default class User extends TimestampedModel {
   }
 
   static relationMappings = {
+    profile: {
+      relation: User.HasOneRelation,
+      modelClass: __dirname + "/Profile",
+      join: {
+        from: "users.id",
+        to:   "profiles.userId"
+      }
+    },
     vehicles: {
       relation: User.HasManyRelation,
-      modelClass: Vehicle,
+      modelClass: __dirname + "/Vehicle",
       join: {
         from: "users.id",
         to:   "vehicles.userId"
@@ -34,11 +43,16 @@ export default class User extends TimestampedModel {
     const uuid = crypto.randomBytes(16).toString("hex")
     const role = "user"
 
-    return await User.query().insert({
+    return await User.query().insertGraph({
       uuid,
       email,
       encryptedPassword,
-      role
+      role,
+      profile: {
+        first_name: "",
+        last_name: "",
+        avatar: ""
+      }
     })
   }
 

@@ -12,6 +12,7 @@ export default `
 
     jwt:                String
 
+    profile:            Profile
     vehicles:           [Vehicle]
   }
 
