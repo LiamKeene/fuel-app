@@ -13,6 +13,14 @@ export default class Vehicle extends TimestampedModel {
         from: "vehicles.userId",
         to:   "users.id"
       }
+    },
+    purchases: {
+      relation: Vehicle.HasManyRelation,
+      modelClass: __dirname + "/Purchase",
+      join: {
+        from: "vehicles.id",
+        to:   "purchases.vehicleId"
+      }
     }
   }
 }

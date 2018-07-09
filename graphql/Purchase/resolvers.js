@@ -12,7 +12,7 @@ const getAllPurchases = async (_, __, { currentUser, models: { Purchase } }) => 
   await Purchase.query().innerJoin("vehicles", { "vehicles.id": "purchases.vehicle_id" }).where({ "vehicles.userId": currentUser.id })
 )
 
-const getPurchases = async (_, { vehicle_id }, { currentUser, models: { Purchase } }) => {
+const getPurchases = async (_, { vehicleId }, { currentUser, models: { Purchase } }) => {
   const vehicle = await currentUser.$relatedQuery("vehicles").where({ id: vehicleId }).first()
   return await vehicle.$relatedQuery("purchases")
 }
