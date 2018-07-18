@@ -1,9 +1,12 @@
 exports.seed = (knex, Promise) => (
   knex("profiles").del()
     .then(() => (
+      knex("users").where({ role: "user" }).select("id")
+    ))
+    .then(users => (
       knex("profiles").insert([
-        { id: 1, user_id: 2, first_name: "John", last_name: "Smith", avatar: "" },
-        { id: 2, user_id: 3, first_name: "Tarou", last_name: "Yamada", avatar: "" },
+        { user_id: users[0].id, first_name: "John", last_name: "Smith", avatar: "" },
+        { user_id: users[1].id, first_name: "Tarou", last_name: "Yamada", avatar: "" },
       ])
     ))
 )
